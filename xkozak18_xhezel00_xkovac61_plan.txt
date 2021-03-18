@@ -1,0 +1,90 @@
+
+
+--------------------------------------------------------------------------------
+
+Termíny: 
+
+	 - 18.3.2020
+		- vytvorenie plánu
+		- inicializácia repozitáru
+	
+	- 21.3.2020
+		- vytvorenie tdd testov pre matematickú knižnicu
+
+	- 28.3.2020
+		- implementácia matematickej knižnice
+		- navrh grafického rozhrania aplikácie
+
+	- 11.4.2020
+		- vytvorenie grafického rozhrania
+		- profiling
+
+ 	- 18.4.2020
+		- vytvorenie inštalátoru
+		- makefile
+		- readme
+
+ 	- 25.4.2020
+		- uzivateľská príručka
+		- mockup
+		- finálne testovanie
+		- doxyfile
+
+	- 29.4.2020
+		- odovzdanie produktu
+
+ 	- 21.5.2020
+		- inštalácia u zákazníka
+
+	- 24.5.2020
+		- verejná prezentácia
+
+-------------------------------------------------------------------------------
+
+Pridelenie úloh:
+
+	- spoločné úlohy
+		- súbory hodnoceni.txt a skutecnost.txt
+		- finálne testovanie a ladenie aplikácie
+
+	- xkozak18:
+		- dogygen - doxyfile
+		- tdd testy pre matematickú knižnicu
+		- vytvorenie plánu
+		- makefile
+		- uživateľská príručka
+		- prezentácia
+		
+	- xhezel00:
+		- profiling
+		- mockup
+		- návrh gui
+		- readme súbor
+		- vytvorenie inštalátoru/odinštalátoru
+
+	- xkovac61:
+		- inicializácia Git, riadenie pull requestov a náslendý merge
+		- vytvorenie grafického rozhrania
+		- spojenie matematickej knižnice a gui
+		- implementácia matematickej knižnice
+	
+
+-------------------------------------------------------------------------------
+
+Komunikačné kanály:
+	- Discord:
+		- Hlavný komunikačný kanál. Bol vytvorený skupinový server, kde sú vytvorené skupiny
+		pre jednotlivé problematiky. 
+	
+	- Tímové online stretnutia:
+		- Každý týždeň bude prebiehať jedno online stretnutie.
+
+-------------------------------------------------------------------------------
+
+Správa verzií a hosting:
+	- systém pre správu verzií - Git
+	- hosting github - repozitár na adrese - https://github.com/KrKOo/IVS_Project2.git
+
+
+
+
