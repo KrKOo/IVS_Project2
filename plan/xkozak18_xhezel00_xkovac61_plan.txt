@@ -4,39 +4,39 @@
 
 Termíny: 
 
-	 - 18.3.2020
+	 - 18.3.2021
 		- vytvorenie plánu
 		- inicializácia repozitáru
 	
-	- 21.3.2020
+	- 21.3.2021
 		- vytvorenie tdd testov pre matematickú knižnicu
 
-	- 28.3.2020
+	- 28.3.2021
 		- implementácia matematickej knižnice
 		- navrh grafického rozhrania aplikácie
 
-	- 11.4.2020
+	- 11.4.2021
 		- vytvorenie grafického rozhrania
 		- profiling
 
- 	- 18.4.2020
+ 	- 18.4.2021
 		- vytvorenie inštalátoru
 		- makefile
 		- readme
 
- 	- 25.4.2020
+ 	- 25.4.2021
 		- uzivateľská príručka
 		- mockup
 		- finálne testovanie
 		- doxyfile
 
-	- 29.4.2020
+	- 29.4.2021
 		- odovzdanie produktu
 
- 	- 21.5.2020
+ 	- 21.5.2021
 		- inštalácia u zákazníka
 
-	- 24.5.2020
+	- 24.5.2021
 		- verejná prezentácia
 
 -------------------------------------------------------------------------------
