@@ -8,11 +8,11 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: window
     width: 400
-    height: 400
+    height: 500
     visible: true
     title: qsTr("Calculator")
     minimumWidth: 300
-    minimumHeight: 350
+    minimumHeight: 400
 
     Component{
         id: myButton
@@ -65,9 +65,63 @@ ApplicationWindow {
         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
         columnSpacing: 2
         rowSpacing: 2
-        rows: 4
+        rows: 5
         columns: 5
 
+        Loader {
+            id: btnRoot
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "<sup>y</sup>√x"
+                this.item.objectName = "btnRoot"
+            }
+        }
+        Loader {
+            id: btnFact
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "x!"
+                this.item.objectName = "btnFact"
+            }
+        }
+        Loader {
+            id: btnMod
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "%"
+                this.item.objectName = "btnMod"
+            }
+        }
+        Loader {
+            id: btnClear
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "CE"
+                this.item.objectName = "btnClear"
+            }
+        }
+        Loader {
+            id: btnDel
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "DEL"
+                this.item.objectName = "btnDel"
+            }
+        }
+        Loader {
+            id: btnPower
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "x<sup>y</<sup>"
+                this.item.objectName = "btnPower"
+            }
+        }
         Loader {
             id: btn7
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -96,28 +150,25 @@ ApplicationWindow {
             }
         }
         Loader {
-            id: btnPower
-            Layout.margins: 0
+            id: btnDiv
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
-                this.item.text = "x<sup>y</<sup>"
-                this.item.objectName = "btnPower"
+                this.item.text = "/"
+                this.item.objectName = "btnDiv"
             }
         }
         Loader {
-            id: btnRoot
-            Layout.margins: 0
+            id: btnPi
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
-                this.item.text = "√"
-                this.item.objectName = "btnRoot"
+                this.item.text = "π"
+                this.item.objectName = "btnPi"
             }
         }
         Loader {
             id: btn4
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -127,7 +178,6 @@ ApplicationWindow {
         }
         Loader {
             id: btn5
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -137,7 +187,6 @@ ApplicationWindow {
         }
         Loader {
             id: btn6
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -146,27 +195,25 @@ ApplicationWindow {
             }
         }
         Loader {
-            Layout.margins: 0
+            id: btnMul
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
-                this.item.text = "!"
-                this.item.objectName = "btnFactorial"
+                this.item.text = "*"
+                this.item.objectName = "btnMul"
             }
         }
         Loader {
-            id: btnDiv
-            Layout.margins: 0
+            id: btnEul
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
-                this.item.text = "/"
-                this.item.objectName = "btnDiv"
+                this.item.text = "e"
+                this.item.objectName = "btnEul"
             }
         }
         Loader {
             id: btn1
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -176,7 +223,6 @@ ApplicationWindow {
         }
         Loader {
             id: btn2
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -186,7 +232,6 @@ ApplicationWindow {
         }
         Loader {
             id: btn3
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -196,7 +241,6 @@ ApplicationWindow {
         }
         Loader {
             id: btnSub
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -205,18 +249,16 @@ ApplicationWindow {
             }
         }
         Loader {
-            id: btnMul
-            Layout.margins: 0
+            id: btnAns
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
-                this.item.text = "*"
-                this.item.objectName = "btnMul"
+                this.item.text = "Ans"
+                this.item.objectName = "btnAns"
             }
         }
         Loader {
             id: btn0
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
@@ -227,32 +269,11 @@ ApplicationWindow {
 
         Loader {
             id: btnFloat
-            Layout.margins: 0
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             sourceComponent: myButton
             onLoaded: {
                 this.item.text = "."
                 this.item.objectName = "btnFloat"
-            }
-        }
-        Loader {
-            id: btnMod
-            Layout.margins: 0
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            sourceComponent: myButton
-            onLoaded: {
-                this.item.text = "%"
-                this.item.objectName = "btnMod"
-            }
-        }
-        Loader {
-            id: btnAdd
-            Layout.margins: 0
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            sourceComponent: myButton
-            onLoaded: {
-                this.item.text = "+"
-                this.item.objectName = "btnAdd"
             }
         }
         Loader {
@@ -265,6 +286,16 @@ ApplicationWindow {
                 this.item.objectName = "btnResult"
             }
         }
+        Loader {
+            id: btnAdd
+            Layout.margins: 0
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            sourceComponent: myButton
+            onLoaded: {
+                this.item.text = "+"
+                this.item.objectName = "btnAdd"
+            }
+        }
     }
 
     Item{
@@ -272,7 +303,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        height: {return Math.min(width/4, 150)}
+        height: {return Math.min(width/4, 125)}
 
         Rectangle {
             color: "#f2f2f2"
