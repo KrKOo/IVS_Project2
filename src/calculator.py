@@ -75,7 +75,7 @@ class Calculator():
         display.setProperty("text", text[:-1])
     
     def setAns(self):
-        ans = float('{0:g}'.format(self.lastResult))
+        ans = format(self.lastResult,'.10g')
         display.setProperty("text", ans)
 
     def setOperation(self, operation):
@@ -120,12 +120,12 @@ class Calculator():
             return
         elif self.operation == Operation.FACT:
             eqn = format(self.prevNumber,'.10g')
-            eqn += " " + self.operations[self.operation]
+            eqn += self.operations[self.operation]
             self.equation.setProperty("text", eqn)
         else:
             eqn = format(self.prevNumber,'.10g')
             eqn += " " + self.operations[self.operation] + " "
-            eqn += format(second,'.10g')
+            eqn += format(second,'.10g') + " ="
             self.equation.setProperty("text", eqn)
 
     def displayResult(self, resultBtnPress = False):
