@@ -65,14 +65,16 @@ class Calculator():
         display.setProperty("text", text[:-1])
     
     def setAns(self):
-        display.setProperty("text", str(self.lastResult))
+        ans = float('{0:g}'.format(self.lastResult))
+        display.setProperty("text", ans)
 
     def setOperation(self, operation):
         self.prevNumber = self.displayResult()
         self.operation = operation
         
         if isinstance(self.prevNumber,str):
-            self.operation = 0
+            if self.prevNumber != "":
+                self.operation = 0
 
         if(operation == Operation.FACT):
             self.displayResult()
@@ -108,7 +110,7 @@ class Calculator():
         result = 0
 
         if value == "" or value == "Error":
-            return ""
+            return value
         else:
             value = float(value)
 
