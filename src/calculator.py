@@ -33,13 +33,22 @@ class Calculator():
     lastResult = 0
     clearNext = False
 
-    def __init__(self, display):
+    operations = {Operation.ADD: "+",
+                  Operation.SUB: "-",
+                  Operation.MUL: "*",
+                  Operation.DIV: "/",
+                  Operation.ROOT: "root",
+                  Operation.POW: "^",
+                  Operation.MOD: "%",
+                  Operation.FACT: "!"}
+
+    def __init__(self, display, equation):
         self.display = display
-        self.error = False
+        self.equation = equation
 
     def appedToDisplay(self, num):
         text = display.property("text")
-        if(self.clearNext):
+        if self.clearNext or text == "Error":
             text = ""
 
         if len(text) < 10:
@@ -58,6 +67,7 @@ class Calculator():
 
     def clearDisplay(self):
         display.setProperty("text", "")
+        equation.setProperty("text", "")
         self.operation = 0
 
     def delLastNumber(self):
@@ -77,7 +87,7 @@ class Calculator():
                 self.operation = 0
 
         if(operation == Operation.FACT):
-            self.displayResult()
+            self.displayResult(True)
         self.clearNext = True
 
     def calculateResult(self, currentNumber):
@@ -105,6 +115,19 @@ class Calculator():
     def displayError(self):
         self.display.setProperty("text", "Error")
 
+    def displayEquation(self, second, result):
+        if self.operation == 0:
+            return
+        elif self.operation == Operation.FACT:
+            eqn = format(self.prevNumber,'.10g')
+            eqn += " " + self.operations[self.operation]
+            self.equation.setProperty("text", eqn)
+        else:
+            eqn = format(self.prevNumber,'.10g')
+            eqn += " " + self.operations[self.operation] + " "
+            eqn += format(second,'.10g')
+            self.equation.setProperty("text", eqn)
+
     def displayResult(self, resultBtnPress = False):
         value = self.display.property("text")
         result = 0
@@ -116,24 +139,27 @@ class Calculator():
 
         try:
             result = self.calculateResult(value)
-        except (ZeroDivisionError, ValueError):
+        except (ZeroDivisionError, ValueError, OverflowError):
             self.displayError();
             self.clearNext = False
             return result
         
         result = round(result, 8)
-        if len(str(result)) <= 10:
+        if len(format(result,'.10g')) <= 10:
             self.display.setProperty("text", result)
         else:
             result = "{0:.4e}".format(result)
             self.display.setProperty("text", result)
 
+        
+        if(resultBtnPress):
+            self.displayEquation(value,result)
+            self.lastResult = result
         self.operation = 0
         self.clearNext = True
-        if(resultBtnPress):
-            self.lastResult = result
         return result
         
+    
 
 
 if __name__ == "__main__":
@@ -173,11 +199,12 @@ if __name__ == "__main__":
     btnDel = window.findChild(QObject, "btnDel")
     btnAns = window.findChild(QObject, "btnAns")
     btnResult = window.findChild(QObject, "btnResult")
-
+    
+    equation = window.findChild(QObject, "equation")
     display = window.findChild(QObject, "display")
 
-    calculator = Calculator(display)
- 
+    calculator = Calculator(display,equation)
+
     btn0.clicked.connect(lambda: calculator.appedToDisplay(0))
     btn1.clicked.connect(lambda: calculator.appedToDisplay(1))
     btn2.clicked.connect(lambda: calculator.appedToDisplay(2))
