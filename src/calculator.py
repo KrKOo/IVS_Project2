@@ -9,6 +9,12 @@ from PySide2.QtCore import QObject
 
 import mathlib
 
+##
+# @file calculator.py
+# @brief Implementation of the connection to gui.
+# @author Kristián Kováč xkovac61 @author Martin Kozák
+# Date: 18.4.2021
+
 
 class Operation(Enum):
     ADD = 1
@@ -34,9 +40,16 @@ class Calculator():
         text = display.property("text")
         if(self.clearNext):
             text = ""
-        text += str(num)
+
+        if len(text) < 10:
+            text += str(num)
+        
         display.setProperty("text", text)
         self.clearNext = False
+
+        if self.operation == Operation.SUB and self.prevNumber == "":
+            self.prevNumber = 0
+            self.displayResult()
 
     def setDisplay(self, num):
         display.setProperty("text", str(num))
@@ -56,6 +69,7 @@ class Calculator():
     def setOperation(self, operation):
         self.prevNumber = self.displayResult()
         self.operation = operation
+                
         if(operation == Operation.FACT):
             self.displayResult()
         self.clearNext = True
@@ -67,15 +81,17 @@ class Calculator():
             return mathlib.sub(self.prevNumber, currentNumber)
         if self.operation == Operation.MUL:
             return mathlib.mul(self.prevNumber, currentNumber)
-        if self.operation == Operation.DIV:     #TODO: Exception
+        if self.operation == Operation.DIV:     
             return mathlib.div(self.prevNumber, currentNumber)
-        if self.operation == Operation.ROOT:    #TODO: Exception
+        if self.operation == Operation.ROOT:    
             return mathlib.nth_root(currentNumber, self.prevNumber)
-        if self.operation == Operation.POW:     #TODO: Exception
+        if self.operation == Operation.POW:     
             return mathlib.pow(self.prevNumber, currentNumber)
-        if self.operation == Operation.MOD:     #TODO: Exception
+        if self.operation == Operation.MOD:     
             return mathlib.mod(self.prevNumber, currentNumber)
-        if self.operation == Operation.FACT:    #TODO: Exception
+        if self.operation == Operation.FACT:
+            if currentNumber > 100:
+                raise ValueError("{} is too big number for factorial.".format(currentNumber))    
             return mathlib.fact(currentNumber)
 
         return currentNumber
@@ -84,21 +100,36 @@ class Calculator():
         self.display.setProperty("text", "Error")
 
     def displayResult(self, resultBtnPress = False):
-        value = float(self.display.property("text"))
+        value = self.display.property("text")
         result = 0
+
+        if value == "":
+            return ""
+        else:
+            value = float(value)
 
         try:
             result = self.calculateResult(value)
-        except ValueError as e:
-            print(e)
+        except (ZeroDivisionError, ValueError):
             self.displayError();
+            self.clearVars(result, resultBtnPress)
+            return result
+        
+        result = round(result, 8)
+        if len(str(result)) <= 10:
+            self.display.setProperty("text", result)
+        else:
+            result = "{0:.4e}".format(result)
+            self.display.setProperty("text", result)
 
-        self.display.setProperty("text", round(result, 10))
+        self.clearVars(result, resultBtnPress)
+        return result
+
+    def clearVars(self, result, resultBtnPress):
         self.operation = 0
         self.clearNext = True
         if(resultBtnPress):
             self.lastResult = result
-        return result
 
 
 if __name__ == "__main__":
@@ -154,8 +185,8 @@ if __name__ == "__main__":
     btn8.clicked.connect(lambda: calculator.appedToDisplay(8))
     btn9.clicked.connect(lambda: calculator.appedToDisplay(9))
     btnFloat.clicked.connect(lambda: calculator.appedToDisplay('.'))
-    btnEul.clicked.connect(lambda: calculator.setDisplay('2.7182818284'))
-    btnPi.clicked.connect(lambda: calculator.setDisplay('3.1415926535'))
+    btnEul.clicked.connect(lambda: calculator.setDisplay('2.71828182'))
+    btnPi.clicked.connect(lambda: calculator.setDisplay('3.14159265'))
     btnClear.clicked.connect(lambda: calculator.clearDisplay())
     btnDel.clicked.connect(lambda: calculator.delLastNumber())
     btnAns.clicked.connect(lambda: calculator.setAns())
