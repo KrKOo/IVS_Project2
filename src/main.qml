@@ -303,20 +303,51 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        height: {return Math.min(width/4, 125)}
+        height: {return Math.min(width/4, 150)}
 
         Rectangle {
             color: "#f2f2f2"
             anchors.fill: parent
         }
-        TextEdit {
-            id: displayText
-            objectName: "display"
-            anchors.fill: parent
+
+        TextInput {
+            id: displayEquation
+            objectName: "equation"
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignBottom
+            activeFocusOnPress: true
+            selectByMouse: true
+            readOnly: true
+            leftPadding: 5
+            rightPadding: 5
+            clip: true
+            height: (parent.height/3)
             font.pointSize: {return Math.max(1, Math.min(width/10, height/2))}
             font.family: "Tahoma"
+            color: "#adadad"
+        }
+
+        TextInput {
+            id: displayText
+            objectName: "display"
+            anchors.top: displayEquation.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.AlignBottom
+            selectByMouse: true
+            leftPadding: 5
+            rightPadding: 5
+            height: (parent.height/3)*2
+            font.pointSize: {return Math.max(1, Math.min(width/10, height/2))}
+            font.family: "Tahoma"
+            color: "#454545"
+            validator: RegExpValidator { regExp: /[+-]?([0-9]*[.])?[0-9]+/ }
+            maximumLength: 13
         }
     }
 }
