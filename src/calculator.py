@@ -35,6 +35,7 @@ class Calculator():
 
     def __init__(self, display):
         self.display = display
+        self.error = False
 
     def appedToDisplay(self, num):
         text = display.property("text")
@@ -69,7 +70,10 @@ class Calculator():
     def setOperation(self, operation):
         self.prevNumber = self.displayResult()
         self.operation = operation
-                
+        
+        if isinstance(self.prevNumber,str):
+            self.operation = 0
+
         if(operation == Operation.FACT):
             self.displayResult()
         self.clearNext = True
@@ -103,7 +107,7 @@ class Calculator():
         value = self.display.property("text")
         result = 0
 
-        if value == "":
+        if value == "" or value == "Error":
             return ""
         else:
             value = float(value)
@@ -112,7 +116,7 @@ class Calculator():
             result = self.calculateResult(value)
         except (ZeroDivisionError, ValueError):
             self.displayError();
-            self.clearVars(result, resultBtnPress)
+            self.clearNext = False
             return result
         
         result = round(result, 8)
@@ -122,14 +126,12 @@ class Calculator():
             result = "{0:.4e}".format(result)
             self.display.setProperty("text", result)
 
-        self.clearVars(result, resultBtnPress)
-        return result
-
-    def clearVars(self, result, resultBtnPress):
         self.operation = 0
         self.clearNext = True
         if(resultBtnPress):
             self.lastResult = result
+        return result
+        
 
 
 if __name__ == "__main__":
