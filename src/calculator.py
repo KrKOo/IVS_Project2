@@ -37,7 +37,7 @@ class Calculator():
                   Operation.SUB: "-",
                   Operation.MUL: "*",
                   Operation.DIV: "/",
-                  Operation.ROOT: "root",
+                  Operation.ROOT: "root of",
                   Operation.POW: "^",
                   Operation.MOD: "%",
                   Operation.FACT: "!"}
@@ -62,7 +62,7 @@ class Calculator():
         display.setProperty("text", text)
         self.clearNext = False
 
-        if self.operation == Operation.SUB and self.prevNumber == "":
+        if self.operation == Operation.SUB and (self.prevNumber == "" or self.prevNumber == "Error"):
             self.prevNumber = 0
             self.displayResult()
 
@@ -88,8 +88,9 @@ class Calculator():
         self.operation = operation
         
         if isinstance(self.prevNumber,str):
-            if self.prevNumber == "":
-                self.operation = 0
+            if self.prevNumber == "" or self.prevNumber == "Error": 
+                if self.operation != Operation.SUB:
+                    self.operation = 0
 
         if(operation == Operation.FACT):
             self.displayResult(True)
@@ -148,6 +149,7 @@ class Calculator():
             result = self.calculateResult(value)
         except (ZeroDivisionError, ValueError, OverflowError):
             self.displayError();
+            self.operation = 0
             self.clearNext = False
             return result
 
