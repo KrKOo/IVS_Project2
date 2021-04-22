@@ -52,8 +52,13 @@ class Calculator():
             text = ""
 
         if len(text) < 10:
-            text += str(num)
+            if num == ".":
+                if "." not in text:
+                    text += num
+            else:
+                text += str(num)
         
+
         display.setProperty("text", text)
         self.clearNext = False
 
@@ -73,17 +78,17 @@ class Calculator():
     def delLastNumber(self):
         text = display.property("text")
         display.setProperty("text", text[:-1])
+        equation.setProperty("text", "")
     
     def setAns(self):
-        ans = format(self.lastResult,'.10g')
-        display.setProperty("text", ans)
+        display.setProperty("text", self.lastResult)
 
     def setOperation(self, operation):
-        self.prevNumber = self.displayResult()
+        self.prevNumber = self.displayResult()        
         self.operation = operation
         
         if isinstance(self.prevNumber,str):
-            if self.prevNumber != "":
+            if self.prevNumber == "":
                 self.operation = 0
 
         if(operation == Operation.FACT):
@@ -91,6 +96,7 @@ class Calculator():
         self.clearNext = True
 
     def calculateResult(self, currentNumber):
+        
         if self.operation == Operation.ADD:
             return mathlib.add(self.prevNumber, currentNumber)
         if self.operation == Operation.SUB:
@@ -130,8 +136,9 @@ class Calculator():
 
     def displayResult(self, resultBtnPress = False):
         value = self.display.property("text")
-        result = 0
+        result = 0.0
 
+        
         if value == "" or value == "Error":
             return value
         else:
@@ -143,16 +150,16 @@ class Calculator():
             self.displayError();
             self.clearNext = False
             return result
-        
+
         result = round(result, 8)
         if len(format(result,'.10g')) <= 10:
             self.display.setProperty("text", result)
         else:
-            result = "{0:.4e}".format(result)
+            result = float("{0:.4e}".format(result))
             self.display.setProperty("text", result)
 
         
-        if(resultBtnPress):
+        if resultBtnPress or self.operation != 0:
             self.displayEquation(value,result)
             self.lastResult = result
         self.operation = 0
