@@ -3,7 +3,7 @@ import QtQuick.Window 2.13
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.0
 import QtGraphicalEffects 1.0
-
+import QtQuick.Dialogs 1.1
 
 ApplicationWindow {
     id: window
@@ -13,6 +13,34 @@ ApplicationWindow {
     title: qsTr("Calculator")
     minimumWidth: 300
     minimumHeight: 400
+    property var helpComponent : Qt.createComponent("help.qml")
+    property var helpWindow    : helpComponent.createObject("helpWindow")
+    property var aboutComponent: Qt.createComponent("about.qml")
+    property var aboutWindow   : aboutComponent.createObject("aboutWindow")
+    onClosing: {
+        helpWindow.close();
+        aboutWindow.close();
+    }
+
+    menuBar: MenuBar {
+        contentHeight: 2
+        Menu {
+                title: "Help"
+                MenuItem {
+                    text: "Manual"
+                    onTriggered: {
+                        helpWindow.show()
+                    }
+                }
+
+                MenuItem {
+                    text: "About"
+                    onTriggered: {
+                        aboutWindow.show()
+                    }
+                }
+            }
+        }
 
     Component{
         id: myButton
@@ -25,6 +53,7 @@ ApplicationWindow {
 
             implicitWidth: size
             implicitHeight: size
+            focusPolicy: Qt.NoFocus
             background: Rectangle{
                 width: size;
                 height: size;
@@ -339,6 +368,7 @@ ApplicationWindow {
             anchors.bottom: parent.bottom
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignBottom
+            focus: true
             selectByMouse: true
             leftPadding: 5
             rightPadding: 5
