@@ -45,7 +45,6 @@ class Calculator():
     def __init__(self, display, equation):
         self.display = display
         self.equation = equation
-        self.appedToDisplay(0)
     
     def appedToDisplay(self, num):
         text = display.property("text")
@@ -202,7 +201,7 @@ class KeyPressFilter(QObject):
             elif e.key() == Qt.Key_Slash:
                 calculator.setOperation(Operation.DIV)
 
-            elif e.key() == Qt.Key_Enter:
+            elif (e.key() == Qt.Key_Return) or (e.key() == Qt.Key_Enter):
                 calculator.displayResult(True)
             elif e.key() == Qt.Key_Backspace:
                 calculator.delLastNumber()
