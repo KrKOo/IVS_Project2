@@ -10,7 +10,7 @@ ApplicationWindow {
     width: 400
     height: 500
     visible: true
-    title: qsTr("Calculator")
+    title: qsTr("PyCalc")
     minimumWidth: 300
     minimumHeight: 400
     property var helpComponent : Qt.createComponent("help.qml")
@@ -376,6 +376,7 @@ ApplicationWindow {
             font.pointSize: {return Math.max(1, Math.min(width/10, height/2))}
             font.family: "Tahoma"
             color: "#454545"
+            readOnly: true
             validator: RegExpValidator { regExp: /[+-]?([0-9]*[.])?[0-9]+/ }
             maximumLength: 13
         }
