@@ -3,9 +3,9 @@ import os
 import signal
 from enum import Enum
 
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtQml import QQmlApplicationEngine
-from PySide2.QtCore import QObject
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
+from PyQt5.QtCore import Qt, QObject, QEvent
 
 import mathlib
 
@@ -45,7 +45,8 @@ class Calculator():
     def __init__(self, display, equation):
         self.display = display
         self.equation = equation
-
+        self.appedToDisplay(0)
+    
     def appedToDisplay(self, num):
         text = display.property("text")
         if self.clearNext or text == "Error":
@@ -167,8 +168,51 @@ class Calculator():
         self.operation = 0
         self.clearNext = True
         return result
-        
-    
+       
+class KeyPressFilter(QObject):
+    def eventFilter(self, obj, e):
+        if e.type() == QEvent.KeyPress:
+            if e.key() == Qt.Key_0:
+                calculator.appedToDisplay("0")
+            elif e.key() == Qt.Key_1:
+                calculator.appedToDisplay("1")
+            elif e.key() == Qt.Key_2:
+                calculator.appedToDisplay("2")
+            elif e.key() == Qt.Key_3:
+                calculator.appedToDisplay("3")
+            elif e.key() == Qt.Key_4:
+                calculator.appedToDisplay("4")
+            elif e.key() == Qt.Key_5:
+                calculator.appedToDisplay("5")
+            elif e.key() == Qt.Key_6:
+                calculator.appedToDisplay("6")
+            elif e.key() == Qt.Key_7:
+                calculator.appedToDisplay("7")
+            elif e.key() == Qt.Key_8:
+                calculator.appedToDisplay("8")
+            elif e.key() == Qt.Key_9:
+                calculator.appedToDisplay("9")
+
+            elif e.key() ==  Qt.Key_Plus:
+                calculator.setOperation(Operation.ADD)
+            elif e.key() == Qt.Key_Minus:
+                calculator.setOperation(Operation.SUB)
+            elif e.key() == Qt.Key_Asterisk:
+                calculator.setOperation(Operation.MUL)
+            elif e.key() == Qt.Key_Slash:
+                calculator.setOperation(Operation.DIV)
+
+            elif e.key() == Qt.Key_Enter:
+                calculator.displayResult(True)
+            elif e.key() == Qt.Key_Backspace:
+                calculator.delLastNumber()
+            elif e.key() == Qt.Key_Delete:
+                calculator.clearDisplay()
+            elif e.key() == Qt.Key_Escape:
+                sys.exit(0)
+            return True
+        else:
+            return QObject.eventFilter(self, obj, e)
 
 
 if __name__ == "__main__":
@@ -180,6 +224,9 @@ if __name__ == "__main__":
     engine.load(path)
 
     window = engine.rootObjects()[0]
+
+    keyPressFilter = KeyPressFilter(window)
+    window.installEventFilter(keyPressFilter)
 
     btn0 = window.findChild(QObject, "btn0")
     btn1 = window.findChild(QObject, "btn1")
@@ -212,6 +259,7 @@ if __name__ == "__main__":
     equation = window.findChild(QObject, "equation")
     display = window.findChild(QObject, "display")
 
+
     calculator = Calculator(display,equation)
 
     btn0.clicked.connect(lambda: calculator.appedToDisplay(0))
@@ -239,7 +287,6 @@ if __name__ == "__main__":
     btnPow.clicked.connect(lambda: calculator.setOperation(Operation.POW))
     btnMod.clicked.connect(lambda: calculator.setOperation(Operation.MOD))
     btnFact.clicked.connect(lambda: calculator.setOperation(Operation.FACT))
-
     btnResult.clicked.connect(lambda: calculator.displayResult(True))
 
     # Set display text
