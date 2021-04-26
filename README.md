@@ -10,7 +10,7 @@ Prostredie
 Inštalácia
 ---------
 Otvorte terminál v ktoromkoľvek priečinku a zadajte: <br/>
-`$ wget url` <br/>
+`$ wget https://github.com/KrKOo/IVS_Project2/raw/main/src/pycalc_1.0_amd64.deb` <br/>
 `$ sudo dpkg -i pycalc_1.0_amd64.deb`
 	
 Spustenie
@@ -30,7 +30,7 @@ Názov týmu: PyCalc
 
 - xkozak18 Martin Kozák
 - xhezel00 Hugo Hežel 
-- xkovac61 Kristián Kováč
+- xkrovac61 Kristián Kováč
 
 Licencia
 -------
