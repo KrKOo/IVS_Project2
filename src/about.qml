@@ -15,11 +15,12 @@ ApplicationWindow {
         wrapMode: Text.WordWrap
         padding: 10
         textFormat: Text.RichText
+        horizontalAlignment: Text.AlignJustify
         text: "
             <h1>About</h1>
-            <p>Aplikácia PyCalc je jednoduchá kalkulačka, ktorá bola vyvinutá v programovacom jazyku Python. 
-            Kalkulačka bola vytvorená v rámci školského projektu. Aplikácia zvláda základné matematické operácie, ako aj 
-            odmocninu, mocninu, faktoriál a výpočet zvyšku po delení - modulo. 
+            <p>Aplikácia PyCalc je jednoduchá kalkulačka, ktorá bola vyvinutá v programovacom jazyku Python.
+            Kalkulačka bola vytvorená v rámci školského projektu. Aplikácia zvláda základné matematické operácie, ako aj
+            odmocninu, mocninu, faktoriál a výpočet zvyšku po delení - modulo.
             </p>"
 
     }
