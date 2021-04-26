@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Qt;Calculator;
+Exec=pycalc
+GenericName=PyCalc
+Icon=/usr/share/pixmaps/pycalc.png
+Name=PyCalc
+Type=Application
+X-KDE-StartupNotify=false

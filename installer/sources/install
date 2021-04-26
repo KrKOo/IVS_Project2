@@ -1,0 +1,3 @@
+install/pycalc.png /usr/share/pixmaps
+install/pycalc.desktop /usr/share/applications
+install/pycalc /usr/bin
