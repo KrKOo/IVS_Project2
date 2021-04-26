@@ -1,6 +1,6 @@
 # IVS PyCalc
 
-PyCalc je jednoduchá kalkulačka, ktorá podporuje základné funkcie. Bola vytvorená v rámci školského projektu na predmet IVS - Praktické aspekty vývoje software
+PyCalc je jednoduchá kalkulačka, ktorá podporuje základné funkcie. Bola vytvorená v rámci školského projektu na predmet IVS - Praktické aspekty vývoje software.
 
 Prostredie
 ---------
@@ -9,19 +9,19 @@ Prostredie
 
 Inštalácia
 ---------
-
-`wget url`
-`sudo dpkg -i pycalc_1.0_amd64.deb`
+Otvorte terminál v ktoromkoľvek priečinku a zadajte: <br/>
+`$ wget url` <br/>
+`$ sudo dpkg -i pycalc_1.0_amd64.deb`
 	
 Spustenie
 ---------
-
-`pycalc`
+Kalkulačku PyCalc je možné spustiť z terminálu príkazom: <br/>
+`$ pycalc`
 
 Odinštalácia
 ---------
-
-`sudo dpkg -r pycalc`
+Odinštaláciu je možné previesť v termináli príkazom: <br/>
+`$ sudo dpkg -r pycalc`
 
 Autori
 ------
