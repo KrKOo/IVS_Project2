@@ -16,6 +16,9 @@ import mathlib
 # Date: 18.4.2021
 
 
+##
+# @brief Enumerate for operations of calculator
+#
 class Operation(Enum):
     ADD = 1
     SUB = 2
@@ -33,6 +36,7 @@ class Calculator():
     lastResult = 0
     clearNext = False
 
+    # dicitonary for operations
     operations = {Operation.ADD: "+",
                   Operation.SUB: "-",
                   Operation.MUL: "*",
@@ -46,11 +50,16 @@ class Calculator():
         self.display = display
         self.equation = equation
     
+    ##
+    # @brief Append new number or dot to text from display
+    # @param num Number or dot to be set
+
     def appedToDisplay(self, num):
         text = display.property("text")
         if self.clearNext or text == "Error":
             text = ""
-
+        
+        # check if content of display is less then 10
         if len(text) < 10:
             if num == ".":
                 if "." not in text:
@@ -61,40 +70,65 @@ class Calculator():
 
         display.setProperty("text", text)
         self.clearNext = False
-
+        
+        # check if content of display is empty 
         if self.operation == Operation.SUB and (self.prevNumber == "" or self.prevNumber == "Error"):
             self.prevNumber = 0
             self.displayResult()
 
+    ##
+    # @brief Set content of display to number 
+    # @param num Number to be displayed
+
     def setDisplay(self, num):
         display.setProperty("text", str(num))
         self.clearNext = False
+
+    ##
+    # @brief Clear all displays
 
     def clearDisplay(self):
         display.setProperty("text", "")
         equation.setProperty("text", "")
         self.operation = 0
 
+    ##
+    # @brief Delete the last number in display
+
     def delLastNumber(self):
         text = display.property("text")
         display.setProperty("text", text[:-1])
         equation.setProperty("text", "")
-    
+    ##
+    # @brief Set content of display to last result
+
     def setAns(self):
         display.setProperty("text", self.lastResult)
 
+    ##
+    # @brief Set operation and change previous number - prev.Number
+    # @param operation Operation to be set
+
     def setOperation(self, operation):
+        # get content of display
         self.prevNumber = self.displayResult()        
         self.operation = operation
         
+        # check if content of display is string and set operation to zero
         if isinstance(self.prevNumber,str):
-            if self.prevNumber == "" or self.prevNumber == "Error": 
+            if self.prevNumber == "" or self.prevNumber == "Error" or self.prevNumber == ".": 
                 if self.operation != Operation.SUB:
                     self.operation = 0
 
+        # count factorial and displays it
         if(operation == Operation.FACT):
             self.displayResult(True)
         self.clearNext = True
+
+    ##
+    # @brief Calculate result
+    # @param currentNumber Second number to be operated
+    # @return Result of operation or if operation is not set returns currentNumber 
 
     def calculateResult(self, currentNumber):
         
@@ -119,10 +153,17 @@ class Calculator():
 
         return currentNumber
 
+    ##
+    # @brief Displays error
+
     def displayError(self):
         self.display.setProperty("text", "Error")
 
-    def displayEquation(self, second, result):
+    ##
+    # @brief Displays first number, operator and second number on second display
+    # @param second Second number to be displayed
+
+    def displayEquation(self, second):
         if self.operation == 0:
             return
         elif self.operation == Operation.FACT:
@@ -135,16 +176,23 @@ class Calculator():
             eqn += format(second,'.10g') + " ="
             self.equation.setProperty("text", eqn)
 
+    ##
+    # @brief Count result and displays it
+    # @param resultBtnPress 
+    # @return Returns result of operation or number if operation wasn't set
+
     def displayResult(self, resultBtnPress = False):
+        # get the content of display
         value = self.display.property("text")
         result = 0.0
 
-        
-        if value == "" or value == "Error":
+        #check type of value 
+        if value == "" or value == "Error" or value == ".":
             return value
         else:
             value = float(value)
 
+        # catch errors of mathlib functions
         try:
             result = self.calculateResult(value)
         except (ZeroDivisionError, ValueError, OverflowError):
@@ -153,6 +201,7 @@ class Calculator():
             self.clearNext = False
             return result
 
+        # display result on main display
         result = round(result, 8)
         if len(format(result,'.10g')) <= 10:
             self.display.setProperty("text", result)
@@ -160,16 +209,21 @@ class Calculator():
             result = float("{0:.4e}".format(result))
             self.display.setProperty("text", result)
 
-        
+        # set the last result and set content of equation display 
         if resultBtnPress or self.operation != 0:
-            self.displayEquation(value,result)
+            self.displayEquation(value)
             self.lastResult = result
+
         self.operation = 0
         self.clearNext = True
         return result
        
 class KeyPressFilter(QObject):
+    ##
+    # @brief Filter for signal events
+
     def eventFilter(self, obj, e):
+        # check what key was pressed
         if e.type() == QEvent.KeyPress:
             if e.key() == Qt.Key_0:
                 calculator.appedToDisplay("0")
@@ -191,6 +245,8 @@ class KeyPressFilter(QObject):
                 calculator.appedToDisplay("8")
             elif e.key() == Qt.Key_9:
                 calculator.appedToDisplay("9")
+            elif e.key() == Qt.Key_Period:
+                calculator.appedToDisplay(".")
 
             elif e.key() ==  Qt.Key_Plus:
                 calculator.setOperation(Operation.ADD)
@@ -215,6 +271,8 @@ class KeyPressFilter(QObject):
 
 
 if __name__ == "__main__":
+
+    #main window set-up
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     app = QGuiApplication(sys.argv)
@@ -227,6 +285,7 @@ if __name__ == "__main__":
     keyPressFilter = KeyPressFilter(window)
     window.installEventFilter(keyPressFilter)
 
+    # buttons set-up
     btn0 = window.findChild(QObject, "btn0")
     btn1 = window.findChild(QObject, "btn1")
     btn2 = window.findChild(QObject, "btn2")
@@ -255,12 +314,13 @@ if __name__ == "__main__":
     btnAns = window.findChild(QObject, "btnAns")
     btnResult = window.findChild(QObject, "btnResult")
     
+    #display set-up
     equation = window.findChild(QObject, "equation")
     display = window.findChild(QObject, "display")
 
-
     calculator = Calculator(display,equation)
 
+    # button connection to calculator functions
     btn0.clicked.connect(lambda: calculator.appedToDisplay(0))
     btn1.clicked.connect(lambda: calculator.appedToDisplay(1))
     btn2.clicked.connect(lambda: calculator.appedToDisplay(2))
@@ -288,7 +348,7 @@ if __name__ == "__main__":
     btnFact.clicked.connect(lambda: calculator.setOperation(Operation.FACT))
     btnResult.clicked.connect(lambda: calculator.displayResult(True))
 
-    # Set display text
+    # set display text
     if not engine.rootObjects():
         sys.exit(-1)
     sys.exit(app.exec_())
