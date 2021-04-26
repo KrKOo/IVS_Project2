@@ -2,7 +2,7 @@
 # @file calculator.py
 # @brief Implementation of the connection to gui.
 # @author Kristián Kováč xkovac61 
-# @author Martin Kozák
+# @author Martin Kozák xkozak18
 # Date: 18.4.2021
 
 
@@ -31,7 +31,7 @@ class Operation(Enum):
     FACT = 8
 
 ##
-# @brief Calculator backed class
+# @brief Calculator backend class
 #
 class Calculator():
     ## Current operation
