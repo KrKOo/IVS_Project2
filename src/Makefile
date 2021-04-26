@@ -13,8 +13,9 @@ pack: clean setup doc make-installer
 	@mkdir -p $(TMPPACK)/doc
 	@cp ../installer/pycalc_1.0_amd64.deb $(TMPPACK)/install
 	make clean-installer
-	@cp -r .. ../../tmp/repo
-	@cp -r html ../../tmp/doc
+	@cp -r .. $(TMPPACK)/repo
+	@rm -f $(TMPPACK)/repo/src/pycalc_1.0_amd64.deb
+	@cp -r html $(TMPPACK)/doc
 	@rm -rf $(TMPPACK)/repo/src/html
 	@cd $(TMPPACK) && zip -r xkozak18.zip *
 	@cp $(TMPPACK)/xkozak18.zip ../..
@@ -67,7 +68,6 @@ clean-installer:
 	rm -rf ../installer/pycalc_1.0*
 
 setup:
-	sudo apt-get -y update
 	sudo apt-get install python3-pip
 	sudo pip3 install pyinstaller
 	sudo pip3 install pyqt5
