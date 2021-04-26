@@ -26,9 +26,9 @@ Autori
 
 PyCalc
 
-- xkozak18 jmeno prijmeni 
-- xhezel00 jmeno prijmeni 
-- xkrovac61 Kristián 
+- xkozak18 Martin Kozák
+- xhezel00 Hugo Hežel 
+- xkrovac61 Kristián Kováč
 
 Licencia
 -------
