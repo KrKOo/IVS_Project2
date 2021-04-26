@@ -1,3 +1,11 @@
+##
+# @file calculator.py
+# @brief Implementation of the connection to gui.
+# @author Kristián Kováč xkovac61 
+# @author Martin Kozák
+# Date: 18.4.2021
+
+
 import sys
 import os
 import signal
@@ -8,13 +16,6 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtCore import Qt, QObject, QEvent
 
 import mathlib
-
-##
-# @file calculator.py
-# @brief Implementation of the connection to gui.
-# @author Kristián Kováč xkovac61 @author Martin Kozák
-# Date: 18.4.2021
-
 
 ##
 # @brief Enumerate for operations of calculator
@@ -29,14 +30,23 @@ class Operation(Enum):
     MOD = 7
     FACT = 8
 
-
+##
+# @brief Calculator backed class
+#
 class Calculator():
+    ## Current operation
     operation = 0
+
+    ## Previous number set after display clear
     prevNumber = 0
+
+    ## Last result (Ans)
     lastResult = 0
+
+    ## Clear display on next input flag
     clearNext = False
 
-    # dicitonary for operations
+    ## Dictionary for operations
     operations = {Operation.ADD: "+",
                   Operation.SUB: "-",
                   Operation.MUL: "*",
@@ -45,6 +55,10 @@ class Calculator():
                   Operation.POW: "^",
                   Operation.MOD: "%",
                   Operation.FACT: "!"}
+
+    ## Claculator constructor
+    # @param display The result display QObject of the calculator
+    # @param equation The equation display QObject of the calculator
 
     def __init__(self, display, equation):
         self.display = display
@@ -218,9 +232,15 @@ class Calculator():
         self.clearNext = True
         return result
        
+##
+# @brief KeyPress event filter 
+#
 class KeyPressFilter(QObject):
     ##
     # @brief Filter for signal events
+    # @param obj Target object
+    # @param e Event
+    # @return True if the event was handled, result of the objects default eventFilter otherwise
 
     def eventFilter(self, obj, e):
         # check what key was pressed
@@ -266,20 +286,22 @@ class KeyPressFilter(QObject):
             elif e.key() == Qt.Key_Escape:
                 sys.exit(0)
             return True
-        else:
-            return QObject.eventFilter(self, obj, e)
+
+        return QObject.eventFilter(self, obj, e)
 
 
 if __name__ == "__main__":
-
-    #main window set-up
+    # Ctrl-C exit support
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
+
+    # load QML file
     path = os.path.join(os.path.dirname(__file__), "main.qml")
     engine.load(path)
 
+    # main window set-up
     window = engine.rootObjects()[0]
 
     keyPressFilter = KeyPressFilter(window)
@@ -314,7 +336,7 @@ if __name__ == "__main__":
     btnAns = window.findChild(QObject, "btnAns")
     btnResult = window.findChild(QObject, "btnResult")
     
-    #display set-up
+    # display set-up
     equation = window.findChild(QObject, "equation")
     display = window.findChild(QObject, "display")
 
@@ -348,7 +370,6 @@ if __name__ == "__main__":
     btnFact.clicked.connect(lambda: calculator.setOperation(Operation.FACT))
     btnResult.clicked.connect(lambda: calculator.displayResult(True))
 
-    # set display text
     if not engine.rootObjects():
         sys.exit(-1)
     sys.exit(app.exec_())
