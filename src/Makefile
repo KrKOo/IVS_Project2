@@ -69,5 +69,5 @@ clean-installer:
 
 setup:
 	sudo apt-get install python3-pip
-	sudo pip3 install pyinstaller
-	sudo pip3 install pyqt5
+	pip3 install -r requirements.txt
+	sudo apt-get install dh-make
