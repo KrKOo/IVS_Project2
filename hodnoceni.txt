@@ -1,0 +1,3 @@
+xkozak18 100 (README, dokumentácia, doxygen, testy na mat. knižnicu, spojenie GUI a mat.knižnice)
+xkovac61 100 (správa Github repozitára, GUI, spojenie GUI a mat. knižnice, mat. knižnica)
+xhezel00 100 (profiling, Makefile, inštalátor, návrh kalkulačpy, mockup-y)
