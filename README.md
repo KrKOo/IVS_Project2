@@ -30,7 +30,7 @@ Názov týmu: PyCalc
 
 - xkozak18 Martin Kozák
 - xhezel00 Hugo Hežel 
-- xkrovac61 Kristián Kováč
+- xkovac61 Kristián Kováč
 
 Licencia
 -------
