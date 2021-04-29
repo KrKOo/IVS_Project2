@@ -10,7 +10,7 @@ Prostredie
 Inštalácia
 ---------
 Otvorte terminál v ktoromkoľvek priečinku a zadajte: <br/>
-`$ wget https://github.com/KrKOo/IVS_Project2/raw/main/src/pycalc_1.0_amd64.deb` <br/>
+`$ wget https://github.com/KrKOo/IVS_Project2/releases/download/v1.0/pycalc_1.0_amd64.deb` <br/>
 `$ sudo dpkg -i pycalc_1.0_amd64.deb`
 	
 Spustenie
