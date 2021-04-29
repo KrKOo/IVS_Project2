@@ -1,5 +1,5 @@
 PYTHON=python3
-TMPPACK=../../tmp
+TMPPACK=../../xkozak18_xkovac61_xhezel00
 
 .PHONY: all pack clean test doc run profile profiling-remove-inputs remove-pycache remove-tmp-pack make-installer clean-installer setup
 
@@ -17,8 +17,7 @@ pack: clean setup doc make-installer
 	@rm -f $(TMPPACK)/repo/src/pycalc_1.0_amd64.deb
 	@cp -r html $(TMPPACK)/doc
 	@rm -rf $(TMPPACK)/repo/src/html
-	@cd $(TMPPACK) && zip -r xkozak18.zip *
-	@cp $(TMPPACK)/xkozak18.zip ../..
+	@cd ../../ && zip -r xkozak18_xkovac61_xhezel00.zip xkozak18_xkovac61_xhezel00
 	make clean
 
 clean: profiling-remove-inputs remove-pycache remove-tmp-pack clean-installer
