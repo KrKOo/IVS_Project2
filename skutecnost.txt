@@ -1,0 +1,17 @@
+Porovnanie plánu vývoja s realitou
+-----------------------------------
+
+Počas vývoja produktu sa nám darilo plniť predom dohodnuté termíny pomerne úspešne. Jediné omeškanie bolo pri termíne
+vytvorenia inštalátora, makefilu a readme, nakoľko sa vytváranie inštalačného balíka skomplikoval.
+Avšak dané oneskorenie predstavovalo 1 deň až 2.
+Po celý čas vývoja sme komunikovali na dohodnutej platforme - Discord. Tímové online stretnutia sme vykonali 3,
+plán však naznačoval 1 stretnutie za týždeň. Vo väčšine prípadov bolo možné problémy vyriešiť pri písomnej komunikácii,
+a tak sme v niektorý týžden necítili potrebu uskutočniť tímové online stretnutie.
+Pre správu verzií sme použili nástroj Git. Vďaka tomuto nástroju sme mohli vykonávať priebežné vzájomné kontroly práce
+a odhalili tak niektoré chyby.
+
+Celkovo si myslíme, že sme vývoj softvéru zvládli, rovnako ako sa aj rozumne držali plánu.
+
+- (xkozak18) Martin Kozak
+- (xkovac61) Kristian Kovac
+- (xhezel00) Hugo Hezel
